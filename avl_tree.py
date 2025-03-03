@@ -1,4 +1,3 @@
-# avl_tree.py
 class AVLNode:
     def __init__(self, produit):
         self.produit = produit
@@ -52,7 +51,6 @@ class AVLTree:
     def _inserer_noeud(self, node, produit):
         if not node:
             return AVLNode(produit)
-        # Ici, on peut choisir de comparer par identifiant ou par nom
         if produit.id < node.produit.id:
             node.gauche = self._inserer_noeud(node.gauche, produit)
         else:
@@ -92,4 +90,62 @@ class AVLTree:
         else:
             return self._rechercher_noeud(node.droite, id_produit)
 
-    # Les méthodes de mise à jour et de suppression suivront une logique similaire en veillant à rééquilibrer l'arbre.
+    def supprimer(self, id_produit):
+        self.racine = self._supprimer_noeud(self.racine, id_produit)
+
+    def _supprimer_noeud(self, node, id_produit):
+        if not node:
+            return node
+
+        # Recherche du nœud à supprimer
+        if id_produit < node.produit.id:
+            node.gauche = self._supprimer_noeud(node.gauche, id_produit)
+        elif id_produit > node.produit.id:
+            node.droite = self._supprimer_noeud(node.droite, id_produit)
+        else:
+            # Nœud trouvé : suppression
+            if not node.gauche:
+                return node.droite
+            elif not node.droite:
+                return node.gauche
+            else:
+                # Cas où le nœud a deux enfants
+                temp = self._trouver_min(node.droite)
+                node.produit = temp.produit
+                node.droite = self._supprimer_noeud(node.droite, temp.produit.id)
+
+        # Mise à jour de la hauteur du nœud courant
+        node.hauteur = 1 + max(self._hauteur(node.gauche), self._hauteur(node.droite))
+
+        # Équilibrage du nœud
+        balance = self._get_balance(node)
+
+        # Cas de déséquilibre et rotations nécessaires
+        # Rotation droite
+        if balance > 1 and self._get_balance(node.gauche) >= 0:
+            return self._rotation_droite(node)
+        # Rotation gauche
+        if balance < -1 and self._get_balance(node.droite) <= 0:
+            return self._rotation_gauche(node)
+        # Double rotation gauche-droite
+        if balance > 1 and self._get_balance(node.gauche) < 0:
+            node.gauche = self._rotation_gauche(node.gauche)
+            return self._rotation_droite(node)
+        # Double rotation droite-gauche
+        if balance < -1 and self._get_balance(node.droite) > 0:
+            node.droite = self._rotation_droite(node.droite)
+            return self._rotation_gauche(node)
+
+        return node
+
+    def _trouver_min(self, node):
+        # Trouver le nœud avec la valeur minimale dans un sous-arbre
+        while node.gauche:
+            node = node.gauche
+        return node
+
+    def mettre_a_jour(self, id_produit, nouveau_produit):
+        # Supprimer l'ancien produit
+        self.supprimer(id_produit)
+        # Insérer le nouveau produit
+        self.inserer(nouveau_produit)
