@@ -71,7 +71,6 @@ class GestionStockApp:
         ttk.Button(buttons_frame, text="Ajouter", command=self.ajouter_produit).grid(row=0, column=0, padx=5)
         ttk.Button(buttons_frame, text="Modifier", command=self.modifier_produit).grid(row=0, column=1, padx=5)
         ttk.Button(buttons_frame, text="Supprimer", command=self.supprimer_produit).grid(row=0, column=2, padx=5)
-        ttk.Button(buttons_frame, text="Afficher", command=self.afficher_produits).grid(row=0, column=3, padx=5)
         ttk.Button(buttons_frame, text="Rechercher", command=self.rechercher_produit).grid(row=0, column=4, padx=5)
         ttk.Button(buttons_frame, text="File Prioritaire", command=self.afficher_file_prioritaire).grid(row=0, column=5, padx=5)
 
@@ -166,7 +165,6 @@ class GestionStockApp:
 
             # Modifier la quantité dans le stock
             self.stock.modifier_produit(id_produit, quantite=nouvelle_quantite)
-
             # Mise à jour dans la file de priorité
             produit = self.arbre.rechercher(id_produit)
             if produit:
@@ -174,6 +172,12 @@ class GestionStockApp:
 
             # Mettre à jour le tableau
             self.afficher_produits()
+            # Réinitialiser les champs du formulaire
+            self.id_entry.delete(0, tk.END)
+            self.nom_entry.delete(0, tk.END)
+            self.quantite_entry.delete(0, tk.END)
+            self.prix_entry.delete(0, tk.END)
+            self.date_entry.delete(0, tk.END)
 
             self.status_var.set("Produit modifié avec succès!")
             messagebox.showinfo("Succès", "Produit modifié avec succès!")
@@ -199,6 +203,12 @@ class GestionStockApp:
 
             # Mettre à jour le tableau
             self.afficher_produits()
+             # Réinitialiser les champs du formulaire
+            self.id_entry.delete(0, tk.END)
+            self.nom_entry.delete(0, tk.END)
+            self.quantite_entry.delete(0, tk.END)
+            self.prix_entry.delete(0, tk.END)
+            self.date_entry.delete(0, tk.END)
 
             self.status_var.set("Produit supprimé avec succès!")
             messagebox.showinfo("Succès", "Produit supprimé avec succès!")
@@ -220,6 +230,13 @@ class GestionStockApp:
 
             # Rechercher le produit dans l'arbre AVL
             produit = self.arbre.rechercher(id_produit)
+            # Réinitialiser les champs du formulaire
+            self.id_entry.delete(0, tk.END)
+            self.nom_entry.delete(0, tk.END)
+            self.quantite_entry.delete(0, tk.END)
+            self.prix_entry.delete(0, tk.END)
+            self.date_entry.delete(0, tk.END)
+
 
             if produit:
                 messagebox.showinfo("Résultat", str(produit))

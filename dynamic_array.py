@@ -62,7 +62,13 @@ class DynamicArray:
         """
         Supprime un produit du tableau dynamique.
         """
+        # Vérifier si l'ID existe dans la liste
+        if not any(p.id == id_produit for p in self.array):
+            raise ValueError(f"Aucun produit avec l'ID {id_produit} n'existe.")
+    
+        # Supprimer le produit si l'ID existe
         self.array = [p for p in self.array if p.id != id_produit]
+
 
     def afficher_produits(self):
         """

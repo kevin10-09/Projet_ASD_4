@@ -3,7 +3,7 @@ from datetime import datetime
 class Produit:
     def __init__(self, id_produit, nom, quantite, prix, date_expiration):
         # Validation de l'ID
-        if not isinstance(id_produit, str) or not id_produit.strip():
+        if not isinstance(id_produit, str) or not id_produit.strip() or not id_produit.isdigit() or int(id_produit) <= 0 :
             raise ValueError("L'ID du produit doit être une chaîne non vide.")
 
         # Validation du nom
