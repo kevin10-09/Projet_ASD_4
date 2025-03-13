@@ -19,9 +19,9 @@ Le **Gestionnaire Intelligent de Stocks** est un logiciel qui permet de gérer u
 1. **Cloner le dépôt** :
    ```bash
    git clone https://github.com/kevin10-09/Projet_ASD_4.git
-2. **Accéder au dossier du projet **: cd Projet_ASD_4
-3. **Exécuter le projet : Interface en ligne de commande (CLI) : Double-cliquez sur main.py ou exécutez la commande suivante **: python main.py
-4. **Interface graphique (GUI) : Double-cliquez sur gui.py ou exécutez la commande suivante ** : python gui.py
+2. **Accéder au dossier du projet **: __cd Projet_ASD_4__
+3. **Exécuter le projet : Interface en ligne de commande (CLI) : Double-cliquez sur main.py ou exécutez la commande suivante **: __python main.py__
+4. **Interface graphique (GUI) : Double-cliquez sur gui.py ou exécutez la commande suivante ** : __python gui.py__
 
  ---
 
